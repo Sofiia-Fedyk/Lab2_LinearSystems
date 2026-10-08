@@ -40,6 +40,11 @@ def lu_decompose(A):
 def solve_lu(A, b, verbose=False):
     """Ly = b, потім Ux = y. Повертає x (np.ndarray)."""
     raise NotImplementedError
+    """Розв'язує САР через LU-розклад."""
+    A_copy = np.copy(A).astype(float)
+    b_copy = np.copy(b).astype(float)
+    n = len(b_copy)
+
 
 
 if __name__ == "__main__":

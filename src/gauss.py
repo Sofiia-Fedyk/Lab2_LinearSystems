@@ -33,6 +33,11 @@ def solve_gauss(A, b, verbose=False):
             if verbose:
                 print_matrix(Ab, f"Крок {k + 1}: Обнулення рядка {i + 1} під головним")
 
+    x = np.zeros(n)
+    for i in range(n - 1, -1, -1):
+        x[i] = Ab[i, n] - np.sum(Ab[i, i+1:n] * x[i+1:n])
+
+    return x
     """Гаусс з вибором головного елемента у стовпці.
     verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
     Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""

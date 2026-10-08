@@ -38,17 +38,6 @@ def solve_gauss(A, b, verbose=False):
         x[i] = Ab[i, n] - np.sum(Ab[i, i+1:n] * x[i+1:n])
 
     return x
-    """Гаусс з вибором головного елемента у стовпці.
-    verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
-    Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""
-
-
-
-def solve_gauss(A, b, verbose=False):
-    """Гаусс з вибором головного елемента у стовпці.
-    verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
-    Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""
-    raise NotImplementedError
 
 
 if __name__ == "__main__":

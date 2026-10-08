@@ -13,8 +13,14 @@ def solve_gauss(A, b, verbose=False):
 
     if verbose:
         print_matrix(Ab, "Початкова розширена матриця:")
+
     for k in range(n):
         max_row_index = k + np.argmax(np.abs(Ab[k:n, k]))
+
+        if max_row_index != k:
+            Ab[[k, max_row_index]] = Ab[[max_row_index, k]]
+            if verbose:
+                print_matrix(Ab, f"Крок {k + 1}: Перестановка рядків {k + 1} та {max_row_index + 1}")
     """Гаусс з вибором головного елемента у стовпці.
     verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
     Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""

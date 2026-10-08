@@ -27,6 +27,12 @@ def solve_gauss(A, b, verbose=False):
 
         if verbose:
             print_matrix(Ab, f"Крок {k + 1}: Ділення рядка {k + 1} на головний елемент {pivot}")
+
+        for i in range(k + 1, n):
+            Ab[i] = Ab[i] - Ab[i, k] * Ab[k]
+            if verbose:
+                print_matrix(Ab, f"Крок {k + 1}: Обнулення рядка {i + 1} під головним")
+
     """Гаусс з вибором головного елемента у стовпці.
     verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
     Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""

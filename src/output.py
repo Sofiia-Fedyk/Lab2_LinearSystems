@@ -31,3 +31,9 @@ def print_summary(results):
     for r in results:
         it = "---" if r["iters"] is None else str(r["iters"])
         print(f"{r['method']:<22}" + "".join(f"{v:10.4f}" for v in r["x"]) + f"{it:>10}")
+
+
+def print_vector(v, title=""):
+    if title:
+        print(title)
+    print("  " + "  ".join(f"{x:10.4f}" for x in v))

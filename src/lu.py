@@ -50,6 +50,13 @@ def solve_lu(A, b, verbose=False):
         minors = leading_minors(A_copy)
         print(f"Головні мінори: {minors}")
 
+    # Крок 2: LU-розклад
+    L, U = lu_decompose(A_copy)
+
+    if verbose:
+        print_matrix(L, "Матриця L:")
+        print_matrix(U, "Матриця U:")
+
 
 
 if __name__ == "__main__":

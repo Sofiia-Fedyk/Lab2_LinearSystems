@@ -1,5 +1,6 @@
 # Вільгельм
 import numpy as np
+from output import print_matrix
 
 
 def solve_gauss(A, b, verbose=False):
@@ -12,10 +13,12 @@ def solve_gauss(A, b, verbose=False):
 
     if verbose:
         print_matrix(Ab, "Початкова розширена матриця:")
+    for k in range(n):
+        max_row_index = k + np.argmax(np.abs(Ab[k:n, k]))
     """Гаусс з вибором головного елемента у стовпці.
     verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
     Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""
-    raise NotImplementedError
+
 
 
 if __name__ == "__main__":

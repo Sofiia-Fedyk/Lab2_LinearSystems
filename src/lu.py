@@ -45,6 +45,11 @@ def solve_lu(A, b, verbose=False):
     b_copy = np.copy(b).astype(float)
     n = len(b_copy)
 
+    # Крок 1: Перевірка мінорів
+    if verbose:
+        minors = leading_minors(A_copy)
+        print(f"Головні мінори: {minors}")
+
 
 
 if __name__ == "__main__":

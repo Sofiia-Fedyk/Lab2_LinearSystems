@@ -17,8 +17,24 @@ def leading_minors(A):
 
 
 def lu_decompose(A):
-    """Повертає (L, U) за формулами (11) з методички."""
-    raise NotImplementedError
+    """Виконує LU-розклад матриці (метод Дулітла: одиниці на діагоналі L)."""
+    n = A.shape[0]
+    L = np.eye(n)  # Матриця з одиницями на головній діагоналі
+    U = np.zeros((n, n))  # Нульова матриця для U
+
+    for i in range(n):
+        # 1. Знаходимо елементи верхнього трикутника (для матриці U)
+        for j in range(i, n):
+            sum_u = np.sum(L[i, :i] * U[:i, j])
+            U[i, j] = A[i, j] - sum_u
+
+        # 2. Знаходимо елементи нижнього трикутника (для матриці L)
+        for j in range(i + 1, n):
+            sum_l = np.sum(L[j, :i] * U[:i, i])
+            # Формула вимагає ділення на діагональний елемент U
+            L[j, i] = (A[j, i] - sum_l) / U[i, i]
+
+    return L, U
 
 
 def solve_lu(A, b, verbose=False):

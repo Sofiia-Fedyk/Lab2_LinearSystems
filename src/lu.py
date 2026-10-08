@@ -38,8 +38,6 @@ def lu_decompose(A):
 
 
 def solve_lu(A, b, verbose=False):
-    """Ly = b, потім Ux = y. Повертає x (np.ndarray)."""
-    raise NotImplementedError
     """Розв'язує САР через LU-розклад."""
     A_copy = np.copy(A).astype(float)
     b_copy = np.copy(b).astype(float)
@@ -57,6 +55,28 @@ def solve_lu(A, b, verbose=False):
         print_matrix(L, "Матриця L:")
         print_matrix(U, "Матриця U:")
 
+    # Крок 3: Прямий хід (Ly = b)
+    # Оскільки на діагоналі L стоять одиниці, ділити на L[i,i] не потрібно
+    y = np.zeros(n)
+    for i in range(n):
+        y[i] = b_copy[i] - np.sum(L[i, :i] * y[:i])
+
+    if verbose:
+        print_matrix(y, "Вектор y:")
+
+    # Крок 4: Зворотний хід (Ux = y)
+    # Тут на діагоналі U стоять числа, тому ділимо на U[i,i]
+    x = np.zeros(n)
+    for i in range(n - 1, -1, -1):
+        x[i] = (y[i] - np.sum(U[i, i + 1:] * x[i + 1:])) / U[i, i]
+
+    return x
+
+
+if __name__ == "__main__":
+    from data import A, b
+
+    print_matrix(solve_lu(A, b, verbose=True), "Вектор розв'язків x (LU):")
 
 
 if __name__ == "__main__":

@@ -21,6 +21,12 @@ def solve_gauss(A, b, verbose=False):
             Ab[[k, max_row_index]] = Ab[[max_row_index, k]]
             if verbose:
                 print_matrix(Ab, f"Крок {k + 1}: Перестановка рядків {k + 1} та {max_row_index + 1}")
+
+        pivot = Ab[k, k]
+        Ab[k] = Ab[k] / pivot
+
+        if verbose:
+            print_matrix(Ab, f"Крок {k + 1}: Ділення рядка {k + 1} на головний елемент {pivot}")
     """Гаусс з вибором головного елемента у стовпці.
     verbose=True -> друкувати матрицю на кожному кроці (output.print_matrix).
     Повертає x (np.ndarray). A і b не змінювати (працювати з .copy())."""

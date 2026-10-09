@@ -1,12 +1,13 @@
 #Софія
-import numpy as np
+import os
+import numpy as np 
 from data import A, b, C, D, EPS
 from output import print_solution, print_iterations, print_summary, print_matrix
 from cramer import solve_cramer
 from inverse import solve_inverse
 from gauss import solve_gauss
 from lu import solve_lu
-from iterative import zero_diagonal, norms, jacobi, seidel
+from iterative import zero_diagonal, norms, jacobi, seidel, plot_convergence
 
 results = []
 
@@ -37,11 +38,18 @@ try:
     print("d =", np.round(d0, 4))
     n1, n2, n3 = norms(C0)
     print(f"||C||1 = {n1:.4f}, ||C||2 = {n2:.4f}, ||C||3 = {n3:.4f}")
+    histories = {}
     for name, func in [("Проста ітерація", jacobi), ("Зейдель", seidel)]:
         x, hist = func(C0, d0, EPS)
+        histories[name] = hist
         print_iterations(name, hist)
         print_solution(name, x)
         results.append({"method": name, "x": x, "iters": hist[-1][0]})
+
+    src_dir = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(src_dir, "convergence.png")
+    plot_convergence(histories, filename)
+    print(f"\nГрафік збіжності збережено: {filename}")
 except NotImplementedError:
     print("\n[Завдання 2] ще не реалізовано")
 

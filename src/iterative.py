@@ -99,3 +99,23 @@ def plot_convergence(histories, filename):
 
     plt.savefig(filename)
     plt.close()
+
+
+
+if __name__ == "__main__":
+    import os
+    from data import C, D, EPS
+
+    C0, d0 = zero_diagonal(C, D)
+    print("Норми:", norms(C0))
+
+    x_j, hist_j = jacobi(C0, d0, EPS)
+    x_s, hist_s = seidel(C0, d0, EPS)
+    print("Проста ітерація:", np.round(x_j, 4), "ітерацій:", hist_j[-1][0])
+    print("Зейдель:        ", np.round(x_s, 4), "ітерацій:", hist_s[-1][0])
+
+    # корінь проєкту = папка на рівень вище за src
+    src_dir = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(src_dir, "convergence.png")
+    plot_convergence({"Проста ітерація": hist_j, "Зейдель": hist_s}, filename)
+    print("Графік збережено:", filename)
